@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: rayvik-shop-bot
+    env: python
+    region: frankfurt
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_ID
+        sync: false
+      - key: PAYMENT_CARD
+        sync: false
+      - key: PAYMENT_YOOMONEY
+        sync: false
+      - key: PAYMENT_SBP_PHONE
+        sync: false
+      - key: PAYMENT_SBP_NAME
+        sync: false
+      - key: PAYMENT_SBP_BANK
+        sync: false
