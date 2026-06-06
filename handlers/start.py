@@ -15,7 +15,7 @@ from config import EMOJI
 router = Router()
 
 # ВСТАВЬТЕ СЮДА ВАШУ ССЫЛКУ С VERCEL!
-WEBAPP_URL = "https://main-five-sage.vercel.app/"
+WEBAPP_URL = "https://rayvik-shop.vercel.app/"
 START_IMAGE_PATH = Path('assets') / 'luno pc and apple.png'
 
 @router.message(CommandStart())
