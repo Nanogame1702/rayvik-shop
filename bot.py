@@ -1,0 +1,77 @@
+import asyncio
+import logging
+from aiogram import Bot, Dispatcher
+
+from config import BOT_TOKEN, ADMIN_ID
+from database import init_db
+from handlers import (
+    start,
+    catalog,
+    payment,
+    admin,
+    promo,
+    webapp,
+    broadcast_plus,
+    broadcast_scheduler,
+    admin_tools,
+    scheduled_manage,
+    help,
+    recurring_broadcast,
+    recurring_manage
+)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+async def main():
+    logger.info("Инициализация базы данных...")
+    await init_db()
+    logger.info("База данных инициализирована")
+
+    bot = Bot(token=BOT_TOKEN)
+    dp = Dispatcher()
+
+    # Регистрация роутеров
+    dp.include_router(admin.router)
+    dp.include_router(broadcast_plus.router)
+    dp.include_router(broadcast_scheduler.router)
+    dp.include_router(recurring_broadcast.router)
+    dp.include_router(recurring_manage.router)
+    dp.include_router(admin_tools.router)
+    dp.include_router(webapp.router)
+    dp.include_router(start.router)
+    dp.include_router(catalog.router)
+    dp.include_router(promo.router)
+    dp.include_router(payment.router)
+    dp.include_router(scheduled_manage.router)
+    dp.include_router(help.router)
+
+    bot_info = await bot.get_me()
+    logger.info(f"Бот запущен: @{bot_info.username}")
+
+    # запуск фонового планировщика отложенных рассылок
+    try:
+        from scheduler.runner import start_runner
+        await start_runner(bot, admin_chat_id=ADMIN_ID)
+        logger.info("Планировщик отложенных рассылок запущен успешно")
+    except Exception:
+        logger.exception("Не удалось запустить планировщик отложенных рассылок")
+
+    try:
+        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    except Exception:
+        logger.exception("Ошибка во время polling")
+    finally:
+        await bot.session.close()
+
+if __name__ == '__main__':
+    try:
+        logger.info("=" * 50)
+        logger.info("RAYVIK SHOP BOT - Запуск")
+        logger.info("=" * 50)
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logger.info("Бот остановлен вручную")
