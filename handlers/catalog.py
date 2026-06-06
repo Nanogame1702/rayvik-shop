@@ -33,17 +33,17 @@ PRODUCTS = {
     },
     'diamonds_1': {
         'name': '500 АЛМАЗОВ',
-        'price': 150,
+        'price': 199,
         'description': f"{EMOJI['diamond']} 500 алмазов на аккаунт\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['check']} Безопасно и надёжно"
     },
     'diamonds_2': {
         'name': '1000 АЛМАЗОВ',
-        'price': 250,
+        'price': 349,
         'description': f"{EMOJI['diamond']} 1000 алмазов на аккаунт\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['fire']} Популярный выбор"
     },
     'diamonds_3': {
         'name': '3000 АЛМАЗОВ',
-        'price': 399,
+        'price': 599,
         'description': f"{EMOJI['diamond']} 3000 алмазов на аккаунт\n{EMOJI['star']} Выгодное предложение\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['alert']} Лучшая цена"
     }
 }
