@@ -143,20 +143,32 @@
             height: 100%;
             overflow: hidden;
             z-index: -1;
+            background: #0A0A0A;
         }
 
         .particle {
             position: absolute;
-            background: linear-gradient(45deg, rgba(102, 126, 234, 0.4), rgba(79, 172, 254, 0.3));
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            animation: float 25s infinite linear;
+            pointer-events: none;
+            animation: snowfall linear infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0) scale(0); opacity: 0; }
-            10% { opacity: 1; transform: scale(1); }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(100px) scale(0.5); opacity: 0; }
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10px) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(var(--drift));
+                opacity: 0;
+            }
         }
 
         .confetti {
@@ -1773,14 +1785,30 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
 
         function createParticles() {
             const container = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
+            const particleCount = 50; // Количество снежинок
+            
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
+                
+                // Случайная позиция по горизонтали
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.width = (Math.random() * 6 + 3) + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.animationDelay = Math.random() * 25 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
+                
+                // Случайный размер (2-6px)
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Случайная задержка начала анимации
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                
+                // Случайная продолжительность падения (8-15 секунд)
+                particle.style.animationDuration = (Math.random() * 7 + 8) + 's';
+                
+                // Небольшое отклонение по горизонтали при падении
+                const drift = (Math.random() - 0.5) * 50;
+                particle.style.setProperty('--drift', drift + 'px');
+                
                 container.appendChild(particle);
             }
         }
