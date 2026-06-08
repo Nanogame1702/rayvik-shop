@@ -99,42 +99,6 @@
             66% { transform: scale(0.9) rotate(240deg); }
         }
 
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            backdrop-filter: blur(20px);
-            border-radius: 50%;
-            width: 52px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-soft);
-            padding: 0;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: var(--shadow-medium);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
-
-        .theme-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .theme-toggle ion-icon {
-            font-size: 26px;
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-
         .particles {
             position: fixed;
             top: 0;
@@ -1479,10 +1443,6 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
 </head>
 <body data-theme="dark">
     <div class="particles" id="particles"></div>
-
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Переключить тему">
-        <ion-icon name="moon" aria-hidden="true"></ion-icon>
-    </button>
 
     <div class="container">
         <header>
