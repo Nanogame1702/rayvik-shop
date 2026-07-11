@@ -45,6 +45,26 @@ async def main():
     logger.info("Инициализация базы данных...")
     await init_db()
     logger.info("База данных инициализирована")
+    
+    # Применяем миграции
+    logger.info("Применение миграций...")
+    try:
+        from pathlib import Path
+        import sqlite3
+        migrations_dir = Path("migrations")
+        if migrations_dir.exists():
+            sql_files = sorted(migrations_dir.glob("*.sql"))
+            with sqlite3.connect('shop_bot.db') as conn:
+                for sql_file in sql_files:
+                    try:
+                        sql = sql_file.read_text(encoding="utf-8")
+                        conn.executescript(sql)
+                        conn.commit()
+                        logger.info(f"✅ Миграция {sql_file.name} применена")
+                    except Exception as e:
+                        logger.warning(f"⚠️ Миграция {sql_file.name}: {e}")
+    except Exception as e:
+        logger.error(f"Ошибка применения миграций: {e}")
 
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
