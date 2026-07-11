@@ -2212,6 +2212,46 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
                         message: 'Скидка 20% активирована. Экономия: ' + discount + '₽',
                         buttons: [{type: 'ok'}]
                     });
+                } else if (promoCode === 'START10') {
+                    const discount = Math.round(selectedProduct.price * 0.1);
+                    const finalPrice = selectedProduct.price - discount;
+
+                    appliedPromo = {code: promoCode, discount: 10};
+
+                    document.getElementById('discountRow').style.display = 'flex';
+                    document.getElementById('discountAmount').textContent = '-' + discount + '₽';
+                    document.getElementById('finalPrice').textContent = finalPrice + '₽';
+
+                    promoText.textContent = '✓ Применён';
+                    promoInput.disabled = true;
+
+                    if (navigator.vibrate) navigator.vibrate([70, 70, 70]);
+
+                    tg.showPopup({
+                        title: '🎉 Промокод применён!',
+                        message: 'Стартовая скидка 10% активирована! Экономия: ' + discount + '₽',
+                        buttons: [{type: 'ok'}]
+                    });
+                } else if (promoCode === 'ЛЕТО10') {
+                    const discount = Math.round(selectedProduct.price * 0.5);
+                    const finalPrice = selectedProduct.price - discount;
+
+                    appliedPromo = {code: promoCode, discount: 50};
+
+                    document.getElementById('discountRow').style.display = 'flex';
+                    document.getElementById('discountAmount').textContent = '-' + discount + '₽';
+                    document.getElementById('finalPrice').textContent = finalPrice + '₽';
+
+                    promoText.textContent = '✓ Применён';
+                    promoInput.disabled = true;
+
+                    if (navigator.vibrate) navigator.vibrate([70, 70, 70]);
+
+                    tg.showPopup({
+                        title: '🎉 Промокод применён!',
+                        message: 'Летняя акция 50% активирована! Экономия: ' + discount + '₽',
+                        buttons: [{type: 'ok'}]
+                    });
                 } else {
                     promoBtn.disabled = false;
                     promoText.textContent = 'Применить промокод';
