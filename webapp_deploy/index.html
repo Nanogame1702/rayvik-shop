@@ -83,7 +83,7 @@
                 radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.04) 0%, transparent 60%);
             animation: gradientShift 25s ease infinite;
             z-index: -2;
-            transition: opacity 0.3s ease;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [data-theme="light"] body::before {
@@ -338,7 +338,7 @@
             border: 1px solid var(--border-color);
             backdrop-filter: blur(12px);
             text-align: center;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -731,7 +731,7 @@
             border-radius: var(--border-radius-lg);
             padding: 28px;
             cursor: pointer;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
@@ -1687,6 +1687,76 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
         if (tg && typeof tg.expand === 'function') {
             tg.expand();
         }
+
+        // Динамическая смена темы для табов
+        function applyThemeColors(theme) {
+            const root = document.documentElement;
+            const bgOverlay = document.querySelector('body::before') || document.body;
+            
+            if (theme === 'diamonds') {
+                // Алмазно-голубая тема
+                root.style.setProperty('--accent-gold', '#00D4FF');
+                root.style.setProperty('--accent-gold-dark', '#0099CC');
+                root.style.setProperty('--gradient-main', 'linear-gradient(135deg, #00D4FF, #0099CC)');
+                root.style.setProperty('--gradient-glow', 'linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 204, 0.2))');
+                root.style.setProperty('--gradient-1', '#00D4FF');
+                root.style.setProperty('--gradient-2', '#0099CC');
+                root.style.setProperty('--gradient-3', '#0066FF');
+                root.style.setProperty('--shadow-strong', '0 12px 50px rgba(0, 212, 255, 0.3)');
+                root.style.setProperty('--shadow-glow', '0 0 25px rgba(0, 212, 255, 0.4)');
+                root.style.setProperty('--border-color', 'rgba(0, 212, 255, 0.2)');
+                root.style.setProperty('--bg-card', 'rgba(0, 212, 255, 0.08)');
+                root.style.setProperty('--text-secondary', '#00D4FF');
+                
+                // Меняем фон
+                const style = document.getElementById('dynamic-bg-style') || document.createElement('style');
+                style.id = 'dynamic-bg-style';
+                style.textContent = `
+                    body::before {
+                        background: 
+                            radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.12) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 70%, rgba(0, 153, 204, 0.12) 0%, transparent 50%),
+                            radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.08) 0%, transparent 60%) !important;
+                    }
+                `;
+                if (!document.getElementById('dynamic-bg-style')) {
+                    document.head.appendChild(style);
+                } else {
+                    style.textContent = style.textContent;
+                }
+            } else {
+                // Золотая тема (по умолчанию)
+                root.style.setProperty('--accent-gold', '#FFD700');
+                root.style.setProperty('--accent-gold-dark', '#C9A961');
+                root.style.setProperty('--gradient-main', 'linear-gradient(135deg, #FFD700, #FFA500)');
+                root.style.setProperty('--gradient-glow', 'linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2))');
+                root.style.setProperty('--gradient-1', '#FFD700');
+                root.style.setProperty('--gradient-2', '#FFA500');
+                root.style.setProperty('--gradient-3', '#C9A961');
+                root.style.setProperty('--shadow-strong', '0 12px 50px rgba(255, 215, 0, 0.3)');
+                root.style.setProperty('--shadow-glow', '0 0 25px rgba(255, 215, 0, 0.4)');
+                root.style.setProperty('--border-color', 'rgba(255, 215, 0, 0.2)');
+                root.style.setProperty('--bg-card', 'rgba(255, 215, 0, 0.08)');
+                root.style.setProperty('--text-secondary', '#C9A961');
+                
+                // Меняем фон
+                const style = document.getElementById('dynamic-bg-style') || document.createElement('style');
+                style.id = 'dynamic-bg-style';
+                style.textContent = `
+                    body::before {
+                        background: 
+                            radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.08) 0%, transparent 50%),
+                            radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.04) 0%, transparent 60%) !important;
+                    }
+                `;
+                if (!document.getElementById('dynamic-bg-style')) {
+                    document.head.appendChild(style);
+                } else {
+                    style.textContent = style.textContent;
+                }
+            }
+        }
         
         const THEME_STORAGE_KEY = 'luno-theme';
         const DEFAULT_THEME = 'dark';
@@ -1950,6 +2020,10 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
             });
             event.currentTarget.classList.add('active');
             event.currentTarget.setAttribute('aria-selected', 'true');
+            
+            // Применяем тему в зависимости от таба
+            applyThemeColors(tab === 'diamonds' ? 'diamonds' : 'cheats');
+            
             renderReviews();
             renderProducts();
             
@@ -2377,6 +2451,10 @@ html[data-theme="light"] #payment-loader { background: rgba(10,12,20,.35); }
         }
 
         tg.ready();
+        
+        // Инициализация с золотой темой
+        applyThemeColors('cheats');
+        
         renderReviews();
         renderProducts();
     </script>
