@@ -85,11 +85,32 @@ async def admin_accept_order(callback: CallbackQuery, bot: Bot):
         try:
             from aiogram.types import FSInputFile
             import os
+            import aiohttp
             
             # Путь к ZIP файлу
             cheat_file_path = "files/MACRO.zip"
             
-            # Проверяем, существует ли файл
+            # Если файл не существует локально, скачиваем с Google Drive
+            if not os.path.exists(cheat_file_path):
+                # ID файла с Google Drive
+                google_drive_file_id = "1WGmIV42pOgMGr2k8y8cYrj2TPCsH894x"
+                download_url = f"https://drive.google.com/uc?export=download&id={google_drive_file_id}"
+                
+                os.makedirs("files", exist_ok=True)
+                
+                try:
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(download_url) as resp:
+                            if resp.status == 200:
+                                with open(cheat_file_path, 'wb') as f:
+                                    f.write(await resp.read())
+                except Exception as e:
+                    await bot.send_message(
+                        ADMIN_ID,
+                        f"⚠️ Ошибка скачивания файла с Google Drive для заказа #{order_id}: {e}"
+                    )
+            
+            # Проверяем, существует ли файл после скачивания
             if os.path.exists(cheat_file_path):
                 cheat_file = FSInputFile(cheat_file_path)
                 
@@ -108,36 +129,17 @@ async def admin_accept_order(callback: CallbackQuery, bot: Bot):
                     parse_mode="Markdown"
                 )
             else:
-                # Если файл не найден на сервере, отправляем через Telegram file_id
-                # (после первой отправки вручную)
-                cheat_file_id = None  # Замени на реальный file_id
-                
-                if cheat_file_id:
-                    await bot.send_document(
-                        order["user_id"],
-                        document=cheat_file_id,
-                        caption=(
-                            f"🔥 **{order['product_name']}**\n\n"
-                            f"✅ Версия: v5.0\n"
-                            f"🛡 Защита от бана: Активна\n\n"
-                            f"🔐 **ПАРОЛЬ ОТ АРХИВА:**\n"
-                            f"`134578`\n\n"
-                            f"💡 Скопируйте пароль для распаковки"
-                        ),
-                        parse_mode="Markdown"
-                    )
-                else:
-                    # Отправляем уведомление админу
-                    await bot.send_message(
-                        order["user_id"],
-                        "⚠️ Файл временно недоступен. Администратор отправит его вручную в течение 5 минут!",
-                        parse_mode="Markdown"
-                    )
-                    await bot.send_message(
-                        ADMIN_ID,
-                        f"⚠️ Файл {cheat_file_path} не найден для заказа #{order_id}\n"
-                        f"Отправь ZIP файл вручную пользователю: {order['user_id']}"
-                    )
+                # Если файл всё равно не найден
+                await bot.send_message(
+                    order["user_id"],
+                    "⚠️ Файл временно недоступен. Администратор отправит его вручную в течение 5 минут!",
+                    parse_mode="Markdown"
+                )
+                await bot.send_message(
+                    ADMIN_ID,
+                    f"⚠️ Файл не найден и не скачан для заказа #{order_id}\n"
+                    f"Отправь ZIP файл вручную пользователю: {order['user_id']}"
+                )
                 
         except Exception as e:
             # В случае ошибки уведомляем админа
