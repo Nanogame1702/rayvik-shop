@@ -83,14 +83,56 @@ async def admin_accept_order(callback: CallbackQuery, bot: Bot):
         
         # Отправляем APK файл
         try:
-            from aiogram.types import FSInputFile
-            apk_path = FSInputFile("files/MC_GARENA_MOD_MENU_V5.apk")
-            await bot.send_document(
-                order["user_id"],
-                document=apk_path,
-                caption=f"🔥 **{order['product_name']}**\n\n✅ Версия: v5.0\n🛡 Защита от бана: Активна",
-                parse_mode="Markdown"
-            )
+            # ВАРИАНТ 1: Через file_id (если файл уже в Telegram)
+            # Замени на реальный file_id после первой отправки
+            apk_file_id = "ВСТАВЬ_СЮДА_FILE_ID_ПОСЛЕ_ПЕРВОЙ_ОТПРАВКИ"
+            
+            # Если file_id ещё не установлен, используем локальный файл
+            if apk_file_id.startswith("ВСТАВЬ"):
+                from aiogram.types import FSInputFile
+                import os
+                
+                apk_path = "files/MC_GARENA_MOD_MENU_V5.apk"
+                
+                # Если файл не существует локально, скачиваем с облака
+                if not os.path.exists(apk_path):
+                    import aiohttp
+                    
+                    # Google Drive прямая ссылка (замени FILE_ID на свой)
+                    file_id = "ВСТАВЬ_СЮДА_ID_ФАЙЛА_С_GOOGLE_DRIVE"
+                    download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+                    
+                    os.makedirs("files", exist_ok=True)
+                    
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(download_url) as resp:
+                            if resp.status == 200:
+                                with open(apk_path, 'wb') as f:
+                                    f.write(await resp.read())
+                
+                apk_file = FSInputFile(apk_path)
+                sent_msg = await bot.send_document(
+                    order["user_id"],
+                    document=apk_file,
+                    caption=f"🔥 **{order['product_name']}**\n\n✅ Версия: v5.0\n🛡 Защита от бана: Активна",
+                    parse_mode="Markdown"
+                )
+                
+                # Логируем file_id для дальнейшего использования
+                await bot.send_message(
+                    ADMIN_ID,
+                    f"📎 File ID для будущих отправок:\n`{sent_msg.document.file_id}`",
+                    parse_mode="Markdown"
+                )
+            else:
+                # Используем сохранённый file_id (быстрая отправка)
+                await bot.send_document(
+                    order["user_id"],
+                    document=apk_file_id,
+                    caption=f"🔥 **{order['product_name']}**\n\n✅ Версия: v5.0\n🛡 Защита от бана: Активна",
+                    parse_mode="Markdown"
+                )
+                
         except Exception as e:
             # Если файл не найден, отправляем сообщение об ошибке админу
             await bot.send_message(

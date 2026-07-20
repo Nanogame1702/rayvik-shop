@@ -64,5 +64,5 @@ Thumbs.db
 # Patches
 patches/
 
-# APK files (cheats)
-files/*.apk
+# APK files are tracked with Git LFS
+# files/*.apk
