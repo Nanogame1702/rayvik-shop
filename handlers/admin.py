@@ -56,15 +56,57 @@ async def admin_accept_order(callback: CallbackQuery, bot: Bot):
     
     await update_order_status(order_id, "completed")
     
-    user_text = (
-        f"{EMOJI['check']} **Оплата успешно подтверждена!**\n\n"
-        f"{EMOJI['package']} **Товар:** {order['product_name']}\n"
-        f"{EMOJI['money']} **Сумма:** {order['product_price']}₽\n\n"
-        f"{EMOJI['lightning']} Ваш товар будет доставлен в течение **суток**!\n"
-        f"{EMOJI['heart']} Спасибо за покупку в **RAYVIK SHOP**!"
-    )
+    # Проверяем, является ли товар читом
+    is_cheat = any(keyword in order['product_name'].upper() for keyword in ['ЧИТ', 'МОД', 'АИМБОТ', 'ВХ', 'МЕНЮ', 'ФУНКЦИОНАЛ'])
     
-    await bot.send_message(order["user_id"], user_text, parse_mode="Markdown")
+    if is_cheat:
+        # Отправляем сообщение + APK файл для читов
+        user_text = (
+            f"🎉 **ПОЗДРАВЛЯЕМ С ПОКУПКОЙ!**\n\n"
+            f"✅ Оплата успешно подтверждена!\n\n"
+            f"📦 **Товар:** {order['product_name']}\n"
+            f"💰 **Сумма:** {order['product_price']}₽\n\n"
+            f"📥 **Ваш чит готов к установке!**\n"
+            f"⬇️ Файл APK отправлен ниже\n\n"
+            f"📱 **Инструкция:**\n"
+            f"1. Скачайте файл\n"
+            f"2. Разрешите установку из неизвестных источников\n"
+            f"3. Установите APK\n"
+            f"4. Запустите игру через мод\n\n"
+            f"⚠️ **Важно:** Не обновляйте игру без обновления мода!\n\n"
+            f"💬 Возникли вопросы? Напишите в поддержку\n"
+            f"💎 Спасибо за покупку в **RAYVIK SHOP**!"
+        )
+        
+        # Отправляем текст
+        await bot.send_message(order["user_id"], user_text, parse_mode="Markdown")
+        
+        # Отправляем APK файл
+        try:
+            from aiogram.types import FSInputFile
+            apk_path = FSInputFile("files/MC_GARENA_MOD_MENU_V5.apk")
+            await bot.send_document(
+                order["user_id"],
+                document=apk_path,
+                caption=f"🔥 **{order['product_name']}**\n\n✅ Версия: v5.0\n🛡 Защита от бана: Активна",
+                parse_mode="Markdown"
+            )
+        except Exception as e:
+            # Если файл не найден, отправляем сообщение об ошибке админу
+            await bot.send_message(
+                ADMIN_ID,
+                f"⚠️ Ошибка отправки файла для заказа #{order_id}: {e}"
+            )
+    else:
+        # Для алмазов — стандартное сообщение
+        user_text = (
+            f"{EMOJI['check']} **Оплата успешно подтверждена!**\n\n"
+            f"{EMOJI['package']} **Товар:** {order['product_name']}\n"
+            f"{EMOJI['money']} **Сумма:** {order['product_price']}₽\n\n"
+            f"{EMOJI['lightning']} Алмазы будут зачислены в течение **15 минут**!\n"
+            f"{EMOJI['heart']} Спасибо за покупку в **RAYVIK SHOP**!"
+        )
+        await bot.send_message(order["user_id"], user_text, parse_mode="Markdown")
     
     try:
         await callback.message.edit_caption(

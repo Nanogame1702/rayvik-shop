@@ -63,3 +63,6 @@ Thumbs.db
 
 # Patches
 patches/
+
+# APK files (cheats)
+files/*.apk
