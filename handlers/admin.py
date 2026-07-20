@@ -56,8 +56,9 @@ async def admin_accept_order(callback: CallbackQuery, bot: Bot):
     
     await update_order_status(order_id, "completed")
     
-    # Проверяем, является ли товар читом
-    is_cheat = any(keyword in order['product_name'].upper() for keyword in ['ЧИТ', 'МОД', 'АИМБОТ', 'ВХ', 'МЕНЮ', 'ФУНКЦИОНАЛ'])
+    # Проверяем, является ли товар читом (а не алмазами)
+    is_cheat = any(keyword in order['product_name'].upper() for keyword in 
+                   ['ЧИТ', 'МОД', 'АИМБОТ', 'ВХ', 'МЕНЮ', 'ФУНКЦИОНАЛ', 'PREMIUM', 'СКИН', 'СКИНЫ', 'ПОЛНЫЙ'])
     
     if is_cheat:
         # Отправляем сообщение + ZIP файл для читов
