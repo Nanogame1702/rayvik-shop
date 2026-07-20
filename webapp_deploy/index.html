@@ -11,23 +11,23 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
         :root {
-            --bg-primary: #0A0A0A;
-            --bg-secondary: #141414;
-            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-primary: #000000;
+            --bg-secondary: #0A0A0A;
+            --bg-card: rgba(255, 215, 0, 0.08);
             --text-primary: #FFFFFF;
-            --text-secondary: #A0A0A0;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --accent-blue: #3B82F6;
-            --accent-yellow: #FDB913;
-            --gradient-main: linear-gradient(135deg, #3B82F6, #FDB913);
-            --gradient-glow: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(253, 185, 19, 0.15));
-            --gradient-1: #3B82F6;
-            --gradient-2: #FDB913;
-            --gradient-3: #2563EB;
-            --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.3);
-            --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.4);
-            --shadow-strong: 0 12px 50px rgba(59, 130, 246, 0.3);
-            --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.25);
+            --text-secondary: #C9A961;
+            --border-color: rgba(255, 215, 0, 0.2);
+            --accent-gold: #FFD700;
+            --accent-gold-dark: #C9A961;
+            --gradient-main: linear-gradient(135deg, #FFD700, #FFA500);
+            --gradient-glow: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+            --gradient-1: #FFD700;
+            --gradient-2: #FFA500;
+            --gradient-3: #C9A961;
+            --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.5);
+            --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.6);
+            --shadow-strong: 0 12px 50px rgba(255, 215, 0, 0.3);
+            --shadow-glow: 0 0 25px rgba(255, 215, 0, 0.4);
             --border-radius: 16px;
             --border-radius-lg: 24px;
         }
@@ -78,9 +78,9 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(253, 185, 19, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 165, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.04) 0%, transparent 60%);
             animation: gradientShift 25s ease infinite;
             z-index: -2;
             transition: opacity 0.3s ease;
@@ -295,7 +295,7 @@
         .stat-number {
             font-size: 24px;
             font-weight: 800;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: glow 2s ease-in-out infinite alternate;
@@ -303,8 +303,8 @@
         }
 
         @keyframes glow {
-            from { filter: drop-shadow(0 0 5px rgba(74, 222, 128, 0.5)); }
-            to { filter: drop-shadow(0 0 15px rgba(74, 222, 128, 0.8)); }
+            from { filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); }
+            to { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
         }
 
         .stat-label {
@@ -360,9 +360,9 @@
         }
 
         .badge-item:hover {
-            border-color: rgba(157, 75, 255, 0.45);
+            border-color: rgba(255, 215, 0, 0.6);
             transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 16px 30px rgba(157, 75, 255, 0.25);
+            box-shadow: 0 16px 30px rgba(255, 215, 0, 0.3);
         }
 
         .badge-icon {
@@ -506,16 +506,16 @@
         }
 
         .trust-item:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 215, 0, 0.12);
             transform: translateX(6px) scale(1.02);
-            border-color: rgba(157, 75, 255, 0.35);
-            box-shadow: 0 14px 26px rgba(157, 75, 255, 0.2);
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 14px 26px rgba(255, 215, 0, 0.3);
         }
 
         .trust-item-icon {
             width: 24px;
             height: 24px;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -757,8 +757,8 @@
 
         .product:hover {
             transform: translateY(-6px) scale(1.02);
-            border-color: rgba(157, 75, 255, 0.6);
-            box-shadow: 0 20px 38px rgba(157, 75, 255, 0.25);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 20px 38px rgba(255, 215, 0, 0.3);
         }
 
         .product:active {
@@ -872,11 +872,11 @@
         .product-price {
             font-size: 32px;
             font-weight: 900;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             white-space: nowrap;
-            filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.5));
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
         }
 
         .product-desc {
@@ -887,8 +887,8 @@
         }
 
         .price-includes {
-            background: linear-gradient(135deg, rgba(76, 222, 128, 0.15), rgba(34, 197, 94, 0.1));
-            border: 2px solid rgba(76, 222, 128, 0.3);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 165, 0, 0.08));
+            border: 2px solid rgba(255, 215, 0, 0.3);
             border-radius: 14px;
             padding: 16px 20px;
             margin-top: 20px;
@@ -903,14 +903,14 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(76, 222, 128, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
             animation: scanline 3s infinite;
         }
 
         .price-includes-title {
             font-size: 14px;
             font-weight: 700;
-            color: #4ade80;
+            color: #FFD700;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -941,7 +941,7 @@
 
         .price-includes-item ion-icon {
             font-size: 16px;
-            color: #4ade80;
+            color: #FFD700;
             flex-shrink: 0;
         }
 
@@ -1061,7 +1061,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+            background: linear-gradient(90deg, #FFD700, #FFA500, #C9A961);
         }
 
         @keyframes slideUp {
@@ -1104,12 +1104,12 @@
         .price-row.total {
             font-size: 26px;
             font-weight: 800;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid rgba(255, 215, 0, 0.2);
         }
 
         .promo-input {
@@ -1127,8 +1127,8 @@
 
         .promo-input:focus {
             outline: none;
-            border-color: var(--gradient-1);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
         
         .promo-input:disabled {
@@ -1195,15 +1195,15 @@
         }
 
         .payment-method:hover {
-            border-color: rgba(102, 126, 234, 0.3);
+            border-color: rgba(255, 215, 0, 0.4);
             transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
         }
 
         .payment-method.selected {
-            border-color: var(--gradient-1);
-            background: rgba(102, 126, 234, 0.2);
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.15);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
             transform: scale(1.02);
         }
 
@@ -1259,7 +1259,7 @@
         .payment-info:hover {
             background: rgba(0, 0, 0, 0.6);
             transform: scale(1.02);
-            border-color: var(--gradient-1);
+            border-color: #FFD700;
         }
 
         .payment-info ion-icon {
@@ -1325,7 +1325,7 @@
         .btn-secondary:hover {
             background: var(--bg-secondary);
             box-shadow: var(--shadow-medium);
-            border-color: var(--accent-purple);
+            border-color: #FFD700;
         }
 
         @media (max-width: 480px) {
