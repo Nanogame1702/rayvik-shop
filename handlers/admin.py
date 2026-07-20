@@ -60,18 +60,18 @@ async def admin_accept_order(callback: CallbackQuery, bot: Bot):
     is_cheat = any(keyword in order['product_name'].upper() for keyword in ['ЧИТ', 'МОД', 'АИМБОТ', 'ВХ', 'МЕНЮ', 'ФУНКЦИОНАЛ'])
     
     if is_cheat:
-        # Отправляем сообщение + APK файл для читов
+        # Отправляем сообщение + ZIP файл для читов
         user_text = (
             f"🎉 **ПОЗДРАВЛЯЕМ С ПОКУПКОЙ!**\n\n"
             f"✅ Оплата успешно подтверждена!\n\n"
             f"📦 **Товар:** {order['product_name']}\n"
             f"💰 **Сумма:** {order['product_price']}₽\n\n"
             f"📥 **Ваш чит готов к установке!**\n"
-            f"⬇️ Файл APK отправлен ниже\n\n"
+            f"⬇️ Файл отправлен ниже\n\n"
             f"📱 **Инструкция:**\n"
-            f"1. Скачайте файл\n"
-            f"2. Разрешите установку из неизвестных источников\n"
-            f"3. Установите APK\n"
+            f"1. Скачайте ZIP архив\n"
+            f"2. Распакуйте архив (пароль будет указан)\n"
+            f"3. Установите файлы согласно инструкции внутри\n"
             f"4. Запустите игру через мод\n\n"
             f"⚠️ **Важно:** Не обновляйте игру без обновления мода!\n\n"
             f"💬 Возникли вопросы? Напишите в поддержку\n"
@@ -81,26 +81,48 @@ async def admin_accept_order(callback: CallbackQuery, bot: Bot):
         # Отправляем текст
         await bot.send_message(order["user_id"], user_text, parse_mode="Markdown")
         
-        # Отправляем APK файл
+        # Отправляем чит-файл
         try:
-            # Отправляем прямую ссылку на скачивание с GitHub
-            download_text = (
-                f"🔥 **{order['product_name']}**\n\n"
-                f"✅ Версия: v5.0\n"
-                f"🛡 Защита от бана: Активна\n\n"
-                f"📥 **Скачать APK файл:**\n"
-                f"https://github.com/Nanogame1702/rayvik-shop/raw/refs/heads/main/files/MC_GARENA_MOD_MENU_V5.apk\n\n"
-                f"💡 Нажмите на ссылку для скачивания"
-            )
-            await bot.send_message(
-                order["user_id"],
-                download_text,
-                parse_mode="Markdown"
-            )
+            from aiogram.types import FSInputFile
+            import os
+            
+            # Путь к ZIP файлу
+            cheat_file_path = "files/MACRO.zip"
+            
+            # Проверяем, существует ли файл
+            if os.path.exists(cheat_file_path):
+                cheat_file = FSInputFile(cheat_file_path)
+                
+                # Отправляем файл с подробной инструкцией
+                await bot.send_document(
+                    order["user_id"],
+                    document=cheat_file,
+                    caption=(
+                        f"🔥 **{order['product_name']}**\n\n"
+                        f"✅ Версия: v5.0\n"
+                        f"🛡 Защита от бана: Активна\n\n"
+                        f"🔐 **ПАРОЛЬ ОТ АРХИВА:**\n"
+                        f"`134578`\n\n"
+                        f"💡 Скопируйте пароль для распаковки"
+                    ),
+                    parse_mode="Markdown"
+                )
+            else:
+                # Если файл не найден, отправляем сообщение
+                await bot.send_message(
+                    order["user_id"],
+                    "⚠️ Файл временно недоступен. Свяжитесь с поддержкой!",
+                    parse_mode="Markdown"
+                )
+                await bot.send_message(
+                    ADMIN_ID,
+                    f"⚠️ Файл {cheat_file_path} не найден для заказа #{order_id}"
+                )
+                
         except Exception as e:
             await bot.send_message(
                 ADMIN_ID,
-                f"⚠️ Ошибка отправки ссылки для заказа #{order_id}: {e}"
+                f"⚠️ Ошибка отправки файла для заказа #{order_id}: {e}"
             )
     else:
         # Для алмазов — стандартное сообщение
