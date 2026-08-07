@@ -35,7 +35,7 @@ async def cmd_start(message: Message, state: FSMContext):
         resize_keyboard=True
     )
     
-    welcome_text = ("💎 Добро пожаловать в RAYVIK SHOP!\n\n🔥 Нажмите кнопку 'Открыть магазин' ниже\n⚡️ Все покупки через Mini App!")
+    welcome_text = ("💎 Добро пожаловать в STRALKINKSSHOP!\n\n🔥 Нажмите кнопку 'Открыть магазин' ниже\n⚡️ Все покупки через Mini App!")
 
     if START_IMAGE_PATH.exists():
         await message.answer_photo(

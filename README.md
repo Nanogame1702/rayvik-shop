@@ -1,6 +1,6 @@
-# 🎮 RAYVIK SHOP - Free Fire Telegram Bot
+# 🎮 STRALKINKSSHOP - Free Fire Telegram Bot
 
-Telegram бот-магазин для продажи модов и алмазов Free Fire с интеграцией Mini App.
+Telegram бот-магазин (@STRALKINKSHOPbot) для продажи модов и алмазов Free Fire с интеграцией Mini App.
 
 ## 🚀 Возможности
 

@@ -108,7 +108,7 @@ async def main():
 if __name__ == '__main__':
     try:
         logger.info("=" * 50)
-        logger.info("RAYVIK SHOP BOT - Запуск")
+        logger.info("STRALKINKSSHOP BOT - Запуск")
         logger.info("=" * 50)
         asyncio.run(main())
     except KeyboardInterrupt:

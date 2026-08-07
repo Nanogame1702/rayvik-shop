@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ТОКЕН И ID из .env или напрямую (для локальной разработки)
-BOT_TOKEN = os.getenv('BOT_TOKEN', '8893140608:AAGwKK-RN8Lxse3ZZVDj1ycTJYjB7dr-yYQ')
+BOT_TOKEN = os.getenv('BOT_TOKEN', '8797154645:AAFs6Br5oJGxKsmCyAmcKfApkHLae0Adw14')
 ADMIN_ID = int(os.getenv('ADMIN_ID', '7519276489'))
 
 # Реквизиты
