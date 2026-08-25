@@ -32,19 +32,19 @@ PRODUCTS = {
         'description': f"{EMOJI['star']} Все возможности\n{EMOJI['diamond']} Бесплатные скины\n{EMOJI['fire']} VIP функции\n{EMOJI['heart']} Полная поддержка"
     },
     'diamonds_1': {
-        'name': '5000 АЛМАЗОВ',
+        'name': '2500 АЛМАЗОВ',
         'price': 199,
-        'description': f"{EMOJI['diamond']} 5000 алмазов на аккаунт\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['check']} Безопасно и надёжно"
+        'description': f"{EMOJI['diamond']} 2500 алмазов на аккаунт\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['check']} Безопасно и надёжно"
     },
     'diamonds_2': {
-        'name': '10000 АЛМАЗОВ',
+        'name': '5000 АЛМАЗОВ',
         'price': 349,
-        'description': f"{EMOJI['diamond']} 10000 алмазов на аккаунт\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['fire']} Популярный выбор"
+        'description': f"{EMOJI['diamond']} 5000 алмазов на аккаунт\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['fire']} Популярный выбор"
     },
     'diamonds_3': {
-        'name': '30000 АЛМАЗОВ',
+        'name': '15000 АЛМАЗОВ',
         'price': 599,
-        'description': f"{EMOJI['diamond']} 30000 алмазов на аккаунт\n{EMOJI['star']} Выгодное предложение\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['alert']} Лучшая цена"
+        'description': f"{EMOJI['diamond']} 15000 алмазов на аккаунт\n{EMOJI['star']} Выгодное предложение\n{EMOJI['lightning']} Моментальная доставка\n{EMOJI['alert']} Лучшая цена"
     }
 }
 

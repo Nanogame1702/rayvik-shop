@@ -18,9 +18,9 @@ def get_cheats_category():
 
 def get_diamonds_category():
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="💎 5000 АЛМАЗОВ - 199₽", callback_data="product_diamonds_1")],
-        [InlineKeyboardButton(text="💎 10000 АЛМАЗОВ - 349₽", callback_data="product_diamonds_2")],
-        [InlineKeyboardButton(text="💎 30000 АЛМАЗОВ - 599₽", callback_data="product_diamonds_3")],
+        [InlineKeyboardButton(text="💎 2500 АЛМАЗОВ - 199₽", callback_data="product_diamonds_1")],
+        [InlineKeyboardButton(text="💎 5000 АЛМАЗОВ - 349₽", callback_data="product_diamonds_2")],
+        [InlineKeyboardButton(text="💎 15000 АЛМАЗОВ - 599₽", callback_data="product_diamonds_3")],
         [InlineKeyboardButton(text=f"{EMOJI['back']} Назад", callback_data="back_to_main")]
     ])
 
